@@ -18,7 +18,6 @@ import theme from '@/components/client/theme';
 import {encodeBase58String} from "@/atom/common/utils/basex";
 import {getPathname} from "@/services/server/pathname";
 import {langEn, langZh, replaceLanguageInPathname} from "@/atom/common/language";
-import {CFTurnstile} from "@/components/client/turnstile/cloud";
 
 const roboto = Roboto({
     weight: ['300', '400', '500', '700'],
@@ -84,8 +83,6 @@ export default async function GlobalLayout({
         </AppRouterCacheProvider>
     </JotaiProvider>
     <input id="LGEnv" type="hidden" value={encodedBrowserConfig}/>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"></script>
-    <CFTurnstile/>
     </body>
     </html>
 }

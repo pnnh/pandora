@@ -1,9 +1,9 @@
 {
-  "name": "polaris",
+  "name": "pandora",
   "version": "0.1.5",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 7100 --turbo",
+    "dev": "next dev -p 7400 --turbo",
     "build": "next build",
     "analyze": "ENV=production ANALYZE=true next build",
     "test": "jest"
@@ -111,7 +111,6 @@
     "tslib": "^2.6.3",
     "tsx": "^4.11.0",
     "typescript": "5.8.3",
-    "typescript-plugin-css-modules": "^5.1.0",
     "webpack-merge": "^6.0.1",
     "zx": "^8.1.8"
   }

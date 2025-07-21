@@ -2,24 +2,17 @@ import styles from './navbar.module.scss'
 import Image from 'next/image'
 import React, {CSSProperties} from "react";
 import {SiteNavMenu} from "@/components/server/content/partials/profile";
-import {UserAction} from "@/components/server/content/partials/userinfo";
-import {ContentSearchAction} from "@/components/server/content/partials/search";
-import {useServerConfig} from "@/services/server/config";
-import {AccountModel} from "@/atom/common/models/account";
 import AppsIcon from '@mui/icons-material/Apps';
 import {PSLanguageSelector} from "@/components/common/language";
 import {getPathname, getSearchString} from "@/services/server/pathname";
 import {ILanguageProvider} from "@/services/common/language";
 import MenuIcon from '@mui/icons-material/Menu';
 
-export async function ContentPublicNavbar({pathname, searchParams, langProvider, userInfo}: {
+export async function ContentPublicNavbar({pathname, searchParams, langProvider}: {
     pathname: string,
     searchParams: Record<string, string>,
-    langProvider: ILanguageProvider,
-    userInfo: AccountModel | undefined
+    langProvider: ILanguageProvider
 }) {
-    const serverConfig = useServerConfig()
-
     const searchString = await getSearchString()
     const currentUrl = `${pathname}${searchString}`
 
@@ -31,15 +24,12 @@ export async function ContentPublicNavbar({pathname, searchParams, langProvider,
             <SiteNavMenu lang={langProvider.lang} langProvider={langProvider} searchParams={searchParams}/>
         </div>
         <div className={styles.rightNav}>
-            <ContentSearchAction pathname={pathname} queryKeyword={searchParams.keyword} lang={langProvider.lang}/>
             <PSLanguageSelector lang={langProvider.lang} currentUrl={currentUrl}/>
-            <UserAction lang={langProvider.lang} langProvider={langProvider} portalUrl={serverConfig.PUBLIC_PORTAL_URL}
-                        userInfo={userInfo}/>
             <a className={styles.toolsLink} href={`${langProvider.lang}/tools`}><AppsIcon/></a>
         </div>
         <div className={styles.rightNavMobile}>
             <PSLanguageSelector lang={langProvider.lang} currentUrl={currentUrl}/>
-            <a className={styles.mobileMenu} href={`${langProvider.lang}/tools`}><MenuIcon/></a>
+            <a className={styles.mobileMenu} href={`/${langProvider.lang}`}><MenuIcon/></a>
         </div>
     </div>
 }

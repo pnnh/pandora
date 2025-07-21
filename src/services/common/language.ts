@@ -23,7 +23,7 @@ class ChineseLanguageProvider implements ILanguageProvider {
     lang = langZh;
     navArticles = '文章';
     navChannels = '频道';
-    siteName = '希波万象';
+    siteName = '希波工具集';
     frequentOperation = '操作过于频繁';
     handwrittenNotes = '手写笔记';
     codeNotes = '代码笔记';
@@ -40,7 +40,7 @@ class ChineseLanguageProvider implements ILanguageProvider {
 
 class EnglishLanguageProvider implements ILanguageProvider {
     lang = langEn;
-    siteName = 'HUABLE';
+    siteName = 'Huable Tools';
     navArticles = 'Articles';
     navChannels = 'Channels';
     frequentOperation = 'Too frequent operation';

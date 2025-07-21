@@ -11,7 +11,7 @@ export async function ToolBody({lang}: { lang: string }) {
                     return <div className={styles.appCard} key={app.uid}>
                         <img className={styles.appImage} src={app.image} alt={app.name}/>
                         <div className={styles.appTitle}>
-                            <a style={{color: '#333', textDecoration: 'none'}} href={app.url}>{app.name}</a>
+                            <a style={{color: '#333', textDecoration: 'none'}} href={`${lang}/${app.url}`}>{app.name}</a>
                         </div>
                         <p className={styles.appDescription}>{app.description}</p>
                     </div>

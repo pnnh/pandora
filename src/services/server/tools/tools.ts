@@ -16,32 +16,32 @@ export function selectApps(expectLang: string): ApplicationModel[] {
     return [
         {
             uid: passwordUrn,
-            url: '/tools/password',
+            url: '/password',
             update_time: '2024-10-30T12:00:00.000Z',
             image: '/images/application/password.webp',
             ...selectAppLangProfile(passwordUrn, expectLang)
         },
         {
             uid: uuidUrn,
-            url: '/tools/uuid',
+            url: '/uuid',
             update_time: '2024-10-30T12:00:00.000Z',
             image: '/images/application/uuid.webp',
             ...selectAppLangProfile(uuidUrn, expectLang)
         },
         {
             uid: qrcodeUrn,
-            url: '/tools/qrcode',
+            url: '/qrcode',
             update_time: '2024-10-30T12:00:00.000Z',
             image: '/images/application/qrcode.webp',
             ...selectAppLangProfile(qrcodeUrn, expectLang)
         },
-        // {
-        //     uid: datetimeUrn,
-        //     url: '/tools/datetime',
-        //     update_time: '2024-10-30T12:00:00.000Z',
-        //     image: '/images/application/datetime.webp',
-        //     ...selectAppLangProfile(datetimeUrn, expectLang)
-        // },
+        {
+            uid: datetimeUrn,
+            url: '/datetime',
+            update_time: '2024-10-30T12:00:00.000Z',
+            image: '/images/application/datetime.webp',
+            ...selectAppLangProfile(datetimeUrn, expectLang)
+        },
     ]
 }
 

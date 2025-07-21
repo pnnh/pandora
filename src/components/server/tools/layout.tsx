@@ -2,6 +2,8 @@ import React from 'react'
 import styles from './layout.module.scss'
 import {PageMetadata} from "@/utils/page";
 import GlobalLayout from "@/components/server/global";
+import {ContentPublicNavbar} from "@/components/server/content/partials/navbar";
+import {getLanguageProvider} from "@/services/common/language";
 
 export default async function ToolsLayout({
                                               children,
@@ -16,9 +18,18 @@ export default async function ToolsLayout({
     metadata: PageMetadata,
     lang: string
 }) {
+    const langProvider = getLanguageProvider(lang)
     return <GlobalLayout lang={lang} metadata={metadata}>
-        <div className={styles.toolsLayout}>
-            {children}
+        <div className={styles.templateContainer}>
+            <div className={styles.templateNavbar}>
+                <ContentPublicNavbar pathname={pathname} searchParams={searchParams}
+                                     langProvider={langProvider} />
+            </div>
+            <div className={styles.templateBody}>
+                <div className={styles.bodyContainer}>
+                    {children}
+                </div>
+            </div>
         </div>
     </GlobalLayout>
 }

@@ -22,7 +22,7 @@ let nextConfig = {
     eslint: {
         ignoreDuringBuilds: true,
     },
-    allowedDevOrigins: ['huable.local', '*.huable.local'],
+    allowedDevOrigins: ['127.0.0.1', 'huable.local', '*.huable.local'],
     images: {
         remotePatterns: [
             {
