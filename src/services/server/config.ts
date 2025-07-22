@@ -23,8 +23,8 @@ function loadConfig() {
 export interface IServerConfig {
     PUBLIC_SELF_URL: string
     PUBLIC_PORTAL_URL: string
-    PUBLIC_LIGHTNING_URL: string
     PUBLIC_TURNSTILE: string
+    PUBLIC_POLARIS_URL: string
 }
 
 export function useServerConfig(): IServerConfig {
@@ -35,8 +35,8 @@ export function useServerConfig(): IServerConfig {
     if (!process.env.PUBLIC_PORTAL_URL) {
         throw new Error('PUBLIC_PORTAL_URL is required')
     }
-    if (!process.env.PUBLIC_LIGHTNING_URL) {
-        throw new Error('PUBLIC_LIGHTNING_URL is required')
+    if (!process.env.PUBLIC_POLARIS_URL) {
+        throw new Error('PUBLIC_POLARIS_URL is required')
     }
     if (!process.env.PUBLIC_TURNSTILE) {
         throw new Error('PUBLIC_TURNSTILE is required')
@@ -46,7 +46,7 @@ export function useServerConfig(): IServerConfig {
         PUBLIC_SELF_URL: process.env.PUBLIC_SELF_URL || '',
         PUBLIC_PORTAL_URL: process.env.PUBLIC_PORTAL_URL,
         PUBLIC_TURNSTILE: process.env.PUBLIC_TURNSTILE || '',
-        PUBLIC_LIGHTNING_URL: process.env.PUBLIC_LIGHTNING_URL || '',
+        PUBLIC_POLARIS_URL: process.env.PUBLIC_POLARIS_URL || '',
     }
 }
 
@@ -75,5 +75,6 @@ export function usePublicConfig(serverConfig?: IServerConfig): IBrowserConfig {
         PUBLIC_MODE: runMode(),
         PUBLIC_TURNSTILE: serverConfig.PUBLIC_TURNSTILE,
         PUBLIC_PORTAL_URL: serverConfig.PUBLIC_PORTAL_URL,
+        PUBLIC_POLARIS_URL: serverConfig.PUBLIC_POLARIS_URL,
     }
 }

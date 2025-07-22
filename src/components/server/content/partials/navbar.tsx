@@ -7,14 +7,19 @@ import {PSLanguageSelector} from "@/components/common/language";
 import {getPathname, getSearchString} from "@/services/server/pathname";
 import {ILanguageProvider} from "@/services/common/language";
 import MenuIcon from '@mui/icons-material/Menu';
+import {UserAction} from "@/components/server/content/partials/userinfo";
+import { useServerConfig } from '@/services/server/config';
+import {AccountModel} from "@/atom/common/models/account";
 
-export async function ContentPublicNavbar({pathname, searchParams, langProvider}: {
+export async function ContentPublicNavbar({pathname, searchParams, langProvider, userInfo}: {
     pathname: string,
     searchParams: Record<string, string>,
-    langProvider: ILanguageProvider
+    langProvider: ILanguageProvider,
+    userInfo: AccountModel | undefined
 }) {
     const searchString = await getSearchString()
     const currentUrl = `${pathname}${searchString}`
+    const serverConfig = useServerConfig()
 
     return <div className={styles.navHeader}>
         <div className={styles.leftNav}>
@@ -25,6 +30,10 @@ export async function ContentPublicNavbar({pathname, searchParams, langProvider}
         </div>
         <div className={styles.rightNav}>
             <PSLanguageSelector lang={langProvider.lang} currentUrl={currentUrl}/>
+            <UserAction lang={langProvider.lang} langProvider={langProvider}
+                        portalUrl={serverConfig.PUBLIC_PORTAL_URL}
+                        polarisUrl={serverConfig.PUBLIC_POLARIS_URL}
+                        userInfo={userInfo}/>
             <a className={styles.toolsLink} href={`${langProvider.lang}/tools`}><AppsIcon/></a>
         </div>
         <div className={styles.rightNavMobile}>
