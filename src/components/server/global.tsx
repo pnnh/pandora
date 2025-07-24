@@ -40,7 +40,7 @@ export default async function GlobalLayout({
 }) {
     const rootPageTitle = pageTitle(lang,)
 
-    const serverConfig = useServerConfig()
+    const serverConfig = await useServerConfig()
     const selfUrl = serverConfig.PUBLIC_SELF_URL
     const browserConfigString = JSON.stringify(usePublicConfig(serverConfig))
     const encodedBrowserConfig = encodeBase58String(browserConfigString)

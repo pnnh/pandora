@@ -22,7 +22,7 @@ export default async function Home({params, searchParams}: {
     metadata.title = 'UUID生成器'
     metadata.description = '各版本UUID生成器'
     metadata.keywords = 'UUID生成器,UUID工具,UUID生成'
-    const serverConfig = useServerConfig()
+    const serverConfig = await useServerConfig()
     const portalUrl = serverConfig.PUBLIC_PORTAL_URL
     return <ToolsLayout lang={lang} searchParams={searchParamsValue} pathname={pathname}
                           metadata={metadata}>

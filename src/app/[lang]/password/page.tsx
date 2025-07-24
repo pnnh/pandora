@@ -20,7 +20,7 @@ export default async function Home({params, searchParams}: {
     metadata.description = `方便的生成随机密码或是随机字符串，支持自定义密码长度、密码字符集、密码个数等。`
     metadata.keywords = `随机密码,密码生成器,密码工具,密码生成,密码`
 
-    const serverConfig = useServerConfig()
+    const serverConfig = await useServerConfig()
     const portalUrl = serverConfig.PUBLIC_PORTAL_URL
     return <ToolsLayout lang={lang} searchParams={await searchParams} pathname={pathname}
                           metadata={metadata}>

@@ -1,56 +1,66 @@
-import dotenv from "dotenv";
-
 import {IBrowserConfig} from "@/services/common/config";
+import {ConfigOptions, initAppConfig} from "@/atom/server/config/config";
 
-console.log('process.env.RUN_MODE', process.env.RUN_MODE)
+export interface IServerConfig {
+    RUN_MODE: string
+    PUBLIC_SELF_URL: string
+    PUBLIC_PORTAL_URL: string
+    PUBLIC_POLARIS_URL: string
+}
 
-let isConfigLoaded = false
+let serverConfigInstance: IServerConfig | undefined;
 
-function loadConfig() {
-    if (isConfigLoaded) {
-        return
+export async function useServerConfig(): Promise<IServerConfig> {
+    if (serverConfigInstance) {
+        return serverConfigInstance
     }
-    // 根据环境从不同的文件加载配置
-    const envPath = `.env.${runMode()}`
-    console.log('当前配置环境', envPath)
-    const result = dotenv.config({path: envPath})
-    if (result.error) {
-        throw new Error(`解析配置出错: ${result.error}`)
+    const configUrl = process.env.CONFIG;
+    if (!configUrl) {
+        throw new Error('CONFIG environment variable is required')
     }
-    isConfigLoaded = true
+    const runMode = getRunMode();
+    const configOptions: ConfigOptions = {
+        project: "huable",
+        app: "polaris",
+        env: runMode,
+        svc: "pandora"
+    }
+    const appConfig = initAppConfig(configUrl, configOptions)
+    const selfUrl = await appConfig.GetString('app.PUBLIC_PANDORA_URL');
+    const portalUrl = await appConfig.GetString('app.PUBLIC_PORTAL_URL');
+    const polarisUrl = await appConfig.GetString('app.PUBLIC_POLARIS_URL');
+
+    if (!selfUrl) {
+        throw new Error('PUBLIC_SELF_URL is required')
+    }
+    if (!portalUrl) {
+        throw new Error('PUBLIC_PORTAL_URL is required')
+    }
+    if (!polarisUrl) {
+        throw new Error('PUBLIC_POLARIS_URL is required')
+    }
+    serverConfigInstance = {
+        RUN_MODE: runMode,
+        PUBLIC_SELF_URL: selfUrl,
+        PUBLIC_PORTAL_URL: portalUrl,
+        PUBLIC_POLARIS_URL: polarisUrl
+    };
+
+    return serverConfigInstance;
 }
 
 export interface IServerConfig {
     PUBLIC_SELF_URL: string
     PUBLIC_PORTAL_URL: string
-    PUBLIC_TURNSTILE: string
     PUBLIC_POLARIS_URL: string
 }
 
-export function useServerConfig(): IServerConfig {
-    loadConfig()
-    if (!process.env.PUBLIC_SELF_URL) {
-        throw new Error('PUBLIC_SELF_URL is required')
-    }
-    if (!process.env.PUBLIC_PORTAL_URL) {
-        throw new Error('PUBLIC_PORTAL_URL is required')
-    }
-    if (!process.env.PUBLIC_POLARIS_URL) {
-        throw new Error('PUBLIC_POLARIS_URL is required')
-    }
-    if (!process.env.PUBLIC_TURNSTILE) {
-        throw new Error('PUBLIC_TURNSTILE is required')
-    }
-
-    return {
-        PUBLIC_SELF_URL: process.env.PUBLIC_SELF_URL || '',
-        PUBLIC_PORTAL_URL: process.env.PUBLIC_PORTAL_URL,
-        PUBLIC_TURNSTILE: process.env.PUBLIC_TURNSTILE || '',
-        PUBLIC_POLARIS_URL: process.env.PUBLIC_POLARIS_URL || '',
-    }
-}
 
 export function runMode() {
+    return process.env.RUN_MODE || 'development'
+}
+
+export function getRunMode() {
     return process.env.RUN_MODE || 'development'
 }
 
@@ -66,14 +76,10 @@ export function isProd() {
     return process.env.RUN_MODE === 'production'
 }
 
-export function usePublicConfig(serverConfig?: IServerConfig): IBrowserConfig {
-    if (!serverConfig) {
-        serverConfig = useServerConfig()
-    }
+export function usePublicConfig(serverConfig: IServerConfig): IBrowserConfig {
     return {
         PUBLIC_SELF_URL: serverConfig.PUBLIC_SELF_URL,
         PUBLIC_MODE: runMode(),
-        PUBLIC_TURNSTILE: serverConfig.PUBLIC_TURNSTILE,
         PUBLIC_PORTAL_URL: serverConfig.PUBLIC_PORTAL_URL,
         PUBLIC_POLARIS_URL: serverConfig.PUBLIC_POLARIS_URL,
     }

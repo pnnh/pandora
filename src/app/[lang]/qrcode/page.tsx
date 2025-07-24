@@ -19,7 +19,7 @@ export default async function Home({params, searchParams}: {
     const metadata = new PageMetadata(lang, '二维码生成器')
     metadata.description = `在线生成二维码`
     metadata.keywords = `二维码,二维码生成器,二维码工具`
-    const serverConfig = useServerConfig()
+    const serverConfig = await useServerConfig()
     const portalUrl = serverConfig.PUBLIC_PORTAL_URL
     return <ToolsLayout lang={lang} searchParams={searchParamsValue} pathname={pathname}
                           metadata={metadata}>

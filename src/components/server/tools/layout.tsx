@@ -20,7 +20,7 @@ export default async function ToolsLayout({
     metadata: PageMetadata,
     lang: string
 }) {
-    const serverConfig = useServerConfig()
+    const serverConfig = await useServerConfig()
     const portalUrl = serverConfig.PUBLIC_PORTAL_URL
     const currentUserInfo = await serverGetUserinfo(portalUrl);
     const langProvider = getLanguageProvider(lang)

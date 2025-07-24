@@ -19,7 +19,7 @@ export async function ContentPublicNavbar({pathname, searchParams, langProvider,
 }) {
     const searchString = await getSearchString()
     const currentUrl = `${pathname}${searchString}`
-    const serverConfig = useServerConfig()
+    const serverConfig = await useServerConfig()
 
     return <div className={styles.navHeader}>
         <div className={styles.leftNav}>
