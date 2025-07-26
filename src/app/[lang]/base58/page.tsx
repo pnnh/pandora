@@ -23,7 +23,7 @@ export default async function Home({params, searchParams}: {
     const portalUrl = serverConfig.PUBLIC_PORTAL_URL
     return <ToolsLayout lang={lang} searchParams={searchParamsValue} pathname={pathname}
                         metadata={metadata}>
-        <div className={styles.qrCodePage}>
+        <div className={styles.base58Page}>
             <h1 className={styles.productTitle}>{localText(lang, 'Base58 编码工具', 'Base58 Encoding Tool')}</h1>
             <Base58Component lang={lang}/>
             <div className={styles.commentsClient}>

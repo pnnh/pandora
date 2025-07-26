@@ -19,5 +19,6 @@ export default async function Page({params, searchParams}: {
     return <ToolsLayout lang={lang} searchParams={searchParamsValue} pathname={pathname}
                         metadata={metadata}>
         <ToolBody lang={lang}/>
+
     </ToolsLayout>
 }

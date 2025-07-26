@@ -9,6 +9,7 @@
 
   .textContainer {
     margin: 1rem 0 1rem 0;
+    background: #FFFFFF;
 
     textarea {
       width: calc(100% - 2rem);
@@ -47,11 +48,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    img {
-      width: 40%;
-      aspect-ratio: 1 / 1;
-    }
+    height: 12rem;
+    background: #FFFFFF;
+    border-radius: 4px;
   }
 }
 

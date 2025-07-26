@@ -34,7 +34,7 @@ export async function ContentPublicNavbar({pathname, searchParams, langProvider,
                         portalUrl={serverConfig.PUBLIC_PORTAL_URL}
                         polarisUrl={serverConfig.PUBLIC_POLARIS_URL}
                         userInfo={userInfo}/>
-            <a className={styles.toolsLink} href={`${langProvider.lang}/tools`}><AppsIcon/></a>
+            <a className={styles.toolsLink} href={`/${langProvider.lang}`}><AppsIcon/></a>
         </div>
         <div className={styles.rightNavMobile}>
             <PSLanguageSelector lang={langProvider.lang} currentUrl={currentUrl}/>
