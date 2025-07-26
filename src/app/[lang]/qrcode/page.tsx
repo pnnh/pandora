@@ -2,7 +2,7 @@ import React from 'react'
 import './page.scss'
 import {getPathname} from "@/services/server/pathname";
 import {CommentsClient} from "@/photon/client/comments/comments";
-import {QRCodeComponent} from "@/atom/client/components/tools/qrcode/qrcode";
+import {QRCodeComponent} from "@/components/client/tools/qrcode/qrcode";
 import {useServerConfig} from "@/services/server/config";
 import {langEn} from "@/atom/common/language";
 import {PageMetadata} from "@/utils/page";

@@ -1,7 +1,7 @@
 import React from 'react'
 import './page.scss'
 import {getPathname} from "@/services/server/pathname";
-import DatetimeComponent from '@/atom/client/components/tools/datetime/datetime';
+import DatetimeComponent from '@/components/client/tools/datetime/datetime';
 import {langEn} from "@/atom/common/language";
 import {PageMetadata} from "@/utils/page";
 import ToolsLayout from "@/components/server/tools/layout";

@@ -2,7 +2,7 @@ import React from 'react'
 import './page.scss'
 import {PageMetadata, pageTitle} from "@/utils/page";
 import {getPathname} from "@/services/server/pathname";
-import RandomPasswordPage from "@/atom/client/components/tools/password/random-password";
+import RandomPasswordPage from "@/components/client/tools/password/random-password";
 import {CommentsClient} from "@/photon/client/comments/comments";
 import {useServerConfig} from "@/services/server/config";
 import {langEn} from "@/atom/common/language";

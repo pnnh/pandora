@@ -1,7 +1,7 @@
 import React from 'react'
 import './page.scss'
 import {getPathname} from "@/services/server/pathname";
-import {ToolBody} from "@/atom/client/components/tools/uuid/tool";
+import {ToolBody} from "@/components/client/tools/uuid/tool";
 import {CommentsClient} from "@/photon/client/comments/comments";
 import {useServerConfig} from "@/services/server/config";
 import {langEn} from "@/atom/common/language";
