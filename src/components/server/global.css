@@ -1,6 +1,10 @@
 @charset "UTF-8";
 
-@use '@/components/common/styles/theme';
+@import '@fontsource/roboto/300.css';
+@import '@fontsource/roboto/400.css';
+@import '@fontsource/roboto/500.css';
+@import '@fontsource/roboto/700.css';
+
 @import "tailwindcss";
 @plugin "daisyui";
 
@@ -22,21 +26,21 @@ body {
   font-size: 13px;
 }
 
-@media (min-width: theme.$screenSmallWidth) {
+@media (min-width: 20rem) {
   html,
   body {
     font-size: 14px;
   }
 }
 
-@media (min-width: theme.$screenMediumWidth) {
+@media (min-width: 48rem) {
   html,
   body {
     font-size: 15px;
   }
 }
 
-@media (min-width: theme.$screenLargeWidth) {
+@media (min-width: 80rem) {
   html,
   body {
     font-size: 16px;

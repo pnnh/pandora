@@ -40,7 +40,7 @@ let nextConfig = {
     sassOptions: {
         includePaths: [path.join(__dirname, 'styles')],
         silenceDeprecations: ['legacy-js-api'],
-    }
+    },
 }
 const withBundleAnalyzer = bundleAnalyzer({
     enabled: process.env.ANALYZE === 'true',
