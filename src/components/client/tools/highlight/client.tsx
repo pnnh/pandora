@@ -78,7 +78,7 @@ const codeThemes: ICodeTheme[] = [
     }
 
     const exportImage = () => {
-        const previewBlock = document.getElementById('previewBlock');
+        const previewBlock = document.getElementById('previewPre');
         if (!previewBlock) {
             console.error('Preview block not found');
             return;
@@ -112,8 +112,9 @@ const codeThemes: ICodeTheme[] = [
         </div>
         <div className="previewContainer">
             <div id={'previewBlock'} className={`previewBlock prism-theme ${darkTheme ? 'dark' : ''}`}>
-                <pre className={`language-${codeProps.codeLang}`} tabIndex={0}><code id={'previewCode'}
-                                                                                     className={`language-${codeProps.codeLang}`}></code></pre>
+                <pre id={'previewPre'} className={`language-${codeProps.codeLang}`} tabIndex={0}>
+                    <code id={'previewCode'} className={`language-${codeProps.codeLang}`}></code>
+                </pre>
             </div>
         </div>
     </div>
