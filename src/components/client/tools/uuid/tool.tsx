@@ -18,6 +18,10 @@ import {
 } from "./state";
 import {copyToClipboard} from "@/atom/client/clipboard";
 import {TextField} from "@mui/material";
+import Button from "@mui/material/Button";
+import {queryApp, uuidUid} from "@/services/server/tools/tools";
+import {ToolNotFound} from "@/components/server/notfound";
+import {localText} from "@/atom/common/language";
 
 function generateUUID(version: number, options?: {
     type: OptionType
@@ -81,6 +85,11 @@ export function ToolBody({lang}: { lang: string }) {
     const [state, setState] = useState<NormalUUIDItem | undefined>()
     const [history, setHistory] = useState<NormalUUIDItem[]>([])
 
+    const appInfo = queryApp(lang, uuidUid)
+    if (!appInfo) {
+        return <ToolNotFound lang={lang}/>
+    }
+
     const appendHistory = (newItem: NormalUUIDItem) => {
         setHistory((old) => {
             const newList = [newItem, ...old]
@@ -94,53 +103,55 @@ export function ToolBody({lang}: { lang: string }) {
         <div className={'toolBody'}>
             <div className={'titleContainer'}>
                 <h1 className={'toolTitle'}>
-                    {'UUID生成器'}
+                    {appInfo.name}
                 </h1>
             </div>
-            <p className={'toolDescription'}>{'快速生成各个版本的UUID'}</p>
+            <p className={'toolDescription'}>{appInfo.description}</p>
 
             <div className={'actionRow'}>
-                <div className={'w-24 inline-block font-bold'}>{'版本选择'}</div>
-                <button onClick={() => {
+                <div className={'w-24 inline-block font-bold'}>
+                    {localText(lang, '版本选择', 'Version Selection')}
+                </div>
+                <Button variant={'contained'} size={'small'} lang={lang} onClick={() => {
                     setState(generateUUID(0))
                 }}>NIL
-                </button>
-                <button onClick={() => {
+                </Button>
+                <Button variant={'contained'} size={'small'} lang={lang} onClick={() => {
                     const newItem = generateUUID(1)
                     setState(newItem)
                     appendHistory(newItem)
                 }}>v1
-                </button>
-                <button onClick={() => {
+                </Button>
+                <Button variant={'contained'} size={'small'} lang={lang} onClick={() => {
                     const newItem = generateUUID(3, {type: OptionType.Random, namespace: uuidv4(), name: ''})
                     setState(newItem)
                     appendHistory(newItem)
                 }}>v3
-                </button>
-                <button onClick={() => {
+                </Button>
+                <Button variant={'contained'} size={'small'} lang={lang} onClick={() => {
                     const newItem = generateUUID(4)
                     setState(newItem)
                     appendHistory(newItem)
                 }}>v4
-                </button>
-                <button onClick={() => {
+                </Button>
+                <Button variant={'contained'} size={'small'} lang={lang} onClick={() => {
                     const newItem = generateUUID(5, {type: OptionType.Random, namespace: uuidv4(), name: ''})
                     setState(newItem)
                     appendHistory(newItem)
                 }}>v5
-                </button>
-                <button onClick={() => {
+                </Button>
+                <Button variant={'contained'} size={'small'} lang={lang} onClick={() => {
                     const newItem = generateUUID(6)
                     setState(newItem)
                     appendHistory(newItem)
                 }}>v6
-                </button>
-                <button onClick={() => {
+                </Button>
+                <Button variant={'contained'} size={'small'} lang={lang} onClick={() => {
                     const newItem = generateUUID(7)
                     setState(newItem)
                     appendHistory(newItem)
                 }}>v7
-                </button>
+                </Button>
             </div>
             {(state?.version === 3 || state?.version === 5) &&
                 <GenOptionTable lang={lang} state={state} setState={setState}
@@ -173,10 +184,12 @@ function GenOptionTable({lang, state, setState, history, setHistory}:
     }
     return <>
         <div className={'optionRow'}>
-            <div className={'w-24 inline-block'}>{'命名空间'}</div>
+            <div className={'w-24 inline-block'}>
+                {localText(lang, '命名空间', 'Namespace')}
+            </div>
             <div className={'namespaceForm'}>
                 <div className={'namespaceSwitch'}>
-                    <button onClick={() => {
+                    <Button variant={'contained'} size={'small'} lang={lang} onClick={() => {
                         const newItem = generateUUID(state.version, {
                             type: OptionType.Random,
                             namespace: uuidv4(),
@@ -184,8 +197,10 @@ function GenOptionTable({lang, state, setState, history, setHistory}:
                         })
                         setState(newItem)
                         appendHistory(newItem)
-                    }}>{'随机'}</button>
-                    <button onClick={() => {
+                    }}>
+                        {localText(lang, '随机', 'Random')}
+                    </Button>
+                    <Button variant={'contained'} size={'small'} lang={lang} onClick={() => {
                         const newItem = generateUUID(state.version, {
                             type: OptionType.DNS, namespace: dnsNamespace,
                             name: state?.options?.name || ''
@@ -193,8 +208,8 @@ function GenOptionTable({lang, state, setState, history, setHistory}:
                         setState(newItem)
                         appendHistory(newItem)
                     }}>DNS
-                    </button>
-                    <button onClick={() => {
+                    </Button>
+                    <Button variant={'contained'} size={'small'} lang={lang} onClick={() => {
                         const newItem = generateUUID(state.version, {
                             type: OptionType.URL, namespace: urlNamespace,
                             name: state?.options?.name || ''
@@ -202,8 +217,8 @@ function GenOptionTable({lang, state, setState, history, setHistory}:
                         setState(newItem)
                         appendHistory(newItem)
                     }}>URL
-                    </button>
-                    <button onClick={() => {
+                    </Button>
+                    <Button variant={'contained'} size={'small'} lang={lang} onClick={() => {
                         const newItem = generateUUID(state.version, {
                             type: OptionType.OID, namespace: oidNamespace,
                             name: state?.options?.name || ''
@@ -211,8 +226,8 @@ function GenOptionTable({lang, state, setState, history, setHistory}:
                         setState(newItem)
                         appendHistory(newItem)
                     }}>OID
-                    </button>
-                    <button onClick={() => {
+                    </Button>
+                    <Button variant={'contained'} size={'small'} lang={lang} onClick={() => {
                         const newItem = generateUUID(state.version, {
                             type: OptionType.X500, namespace: x500Namespace,
                             name: state?.options?.name || ''
@@ -220,15 +235,15 @@ function GenOptionTable({lang, state, setState, history, setHistory}:
                         setState(newItem)
                         appendHistory(newItem)
                     }}>X500
-                    </button>
-                    <button onClick={() => {
+                    </Button>
+                    <Button variant={'contained'} size={'small'} lang={lang} onClick={() => {
                         const newItem = generateUUID(state.version, {
                             type: OptionType.Custom, namespace: state?.options?.namespace || uuidv4(),
                             name: state?.options?.name || ''
                         })
                         setState(newItem)
                         appendHistory(newItem)
-                    }}>{'自定义'}</button>
+                    }}>{localText(lang, '自定义', 'Custom')}</Button>
                 </div>
                 <div className={'namespaceText'}>
                     <div>
@@ -236,7 +251,7 @@ function GenOptionTable({lang, state, setState, history, setHistory}:
                             <TextField
                                 size={'small'}
                                 disabled={state?.options?.type !== OptionType.Custom}
-                                placeholder={'命名空间'}
+                                placeholder={localText(lang, '命名空间', 'Namespace')}
                                 value={state?.options?.namespace || ''}
                                 onChange={(event) => {
                                     const valid = validate(event.target.value)
@@ -268,11 +283,11 @@ function GenOptionTable({lang, state, setState, history, setHistory}:
             </div>
         </div>
         <div className={'optionRow'}>
-            <div className={'w-24 inline-block'}>{'名称'}</div>
+            <div className={'w-24 inline-block'}>{localText(lang, '名称', 'Name')}</div>
             <div>
                 <TextField
                     size={'small'}
-                    placeholder={'名称'}
+                    placeholder={localText(lang, '名称', 'Name')}
                     value={state?.options?.name || ''}
                     onChange={(event) => {
                         const newItem = generateUUID(state?.version, {
@@ -290,9 +305,8 @@ function GenOptionTable({lang, state, setState, history, setHistory}:
 }
 
 function GenHistoryTable({lang, history}: { lang: string, history: NormalUUIDItem[] }) {
-
     return <div>
-        <h2>{'生成历史'}</h2>
+        <h2>{localText(lang, '生成历史', 'History')}</h2>
         {history.map((item, index) => {
             return <div key={index}>
                 <UUIDItemCard uuidItem={item} lang={lang}/>
@@ -305,7 +319,7 @@ function UUIDItemCard({uuidItem, lang}: { uuidItem: NormalUUIDItem, lang: string
 
     return <div className={'uuidItemCard'}>
         <div className={'dataRow'}>
-            <div className={'headerCell'}>{'长格式'}</div>
+            <div className={'headerCell'}>{localText(lang, '长格式', 'Long Format')}</div>
             <div className={'dataCell'}>
                 <div className={'uuidItem'}>
                     <CopyItem uuidText={uuidItem.long.toUpperCase()}/>
@@ -316,7 +330,7 @@ function UUIDItemCard({uuidItem, lang}: { uuidItem: NormalUUIDItem, lang: string
             </div>
         </div>
         <div className={'dataRow'}>
-            <div className={'headerCell'}>{'短格式'}</div>
+            <div className={'headerCell'}>{localText(lang, '短格式', 'Short Format')}</div>
             <div className={'dataCell'}>
                 <div className={'uuidItem'}>
                     <CopyItem uuidText={uuidItem.short.toUpperCase()}/>
@@ -327,7 +341,7 @@ function UUIDItemCard({uuidItem, lang}: { uuidItem: NormalUUIDItem, lang: string
             </div>
         </div>
         {(uuidItem.version === 3 || uuidItem.version === 5) && <div className={'dataRow'}>
-            <div className={'headerCell'}>{'生成选项'}</div>
+            <div className={'headerCell'}>{localText(lang, '生成选项', 'Options')}</div>
             <div className={'dataCell'}>
                 {uuidItem.options && <div>
                     <div>{JSON.stringify(uuidItem.options)}</div>
