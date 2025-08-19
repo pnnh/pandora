@@ -36,7 +36,7 @@ export default function MarkdownComponent({lang}: { lang: string }) {
     if (!appInfo) {
         return <ToolNotFound lang={lang}/>
     }
-    return <div className={styles.markdownPage}>
+    return <div className={styles.markdownComponent}>
         <h1>{appInfo.name}</h1>
         <textarea className={styles.sourceText} placeholder={
             localText(lang, '请输入Markdown文本', 'Please enter Markdown text')

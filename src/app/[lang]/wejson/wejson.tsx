@@ -3,10 +3,12 @@
 import React from 'react';
 import styles from './wejson.module.scss';
 import {WePreview} from "./preview";
+import Button from "@mui/material/Button";
+import {Alert} from "@mui/material";
 
 export function WeJsonClient() {
     const [rawContent, setRawContent] = React.useState('');
-    const [message, setMessage] = React.useState('');
+    const [errMsg, setErrMsg] = React.useState('');
     const [parsedContent, setParsedContent] = React.useState('');
 
     return <div className={styles.wejsonContainer}>
@@ -21,18 +23,18 @@ export function WeJsonClient() {
             </div>
         </div>
         <div>
-            {message}
+            {errMsg && <Alert severity="error">{errMsg}</Alert>}
         </div>
-        <div>
-            <button onClick={() => {
+        <div className={styles.toolButtons}>
+            <Button variant={'contained'} size={'small'} onClick={() => {
                 try {
                     const parsed = JSON.parse(rawContent);
                     setParsedContent(JSON.stringify(parsed, null, 2));
                 } catch (error) {
-                    setMessage('Invalid JSON: ' + error);
+                    setErrMsg('Invalid JSON: ' + error);
                 }
             }}>Parse JSON
-            </button>
+            </Button>
         </div>
     </div>
 }
