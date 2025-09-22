@@ -54,7 +54,7 @@ export function selectApps(expectLang: string): ApplicationModel[] {
         },
         {
             uid: base58Uid,
-            url: '/base58',
+            url: 'https://ebase58.huable.xyz',
             update_time: '2024-10-30T12:00:00.000Z',
             image: '/images/application/datetime.webp',
             ...selectAppLangProfile(base58Uid, expectLang)
