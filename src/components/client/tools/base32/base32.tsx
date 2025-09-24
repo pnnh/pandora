@@ -17,14 +17,13 @@ export default function Base32Component({lang}: { lang: string }) {
     const [output, setOutput] = React.useState('');
     const [clientConfig, setClientConfig] = React.useState<IBrowserConfig | undefined>(undefined);
     useEffect(() =>{
-        useClientConfig().then((config) => {
-            setClientConfig(config);
-        })
+        const config = useClientConfig()
+        setClientConfig(config);
     }, [])
+
     if (!clientConfig) {
         return <Loading/>
     }
-
     const encodeBase32 = () => {
         if (!source) {
             return;
